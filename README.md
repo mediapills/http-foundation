@@ -1,6 +1,6 @@
-[![GitHub Workflow Actions Status](https://github.com/mediapills/http-foundation/workflows/CI%20Build/badge.svg?branch=0.0.1)](https://github.com/mediapills/http-foundation/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/mediapills/http-foundation/blob/0.0.1/LICENSE.md)
-[![Requirements Status](https://requires.io/github/mediapills/http-foundation/requirements.svg?branch=0.0.1)](https://requires.io/github/mediapills/http-foundation/requirements/?branch=0.0.1)
+[![GitHub Workflow Actions Status](https://github.com/mediapills/http-foundation/workflows/CI%20Build/badge.svg?branch=main)](https://github.com/mediapills/http-foundation/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/mediapills/http-foundation/blob/main/LICENSE.md)
+[![Requirements Status](https://requires.io/github/mediapills/http-foundation/requirements.svg?branch=main)](https://requires.io/github/mediapills/http-foundation/requirements/?branch=main)
 
 
 # Install
@@ -16,7 +16,7 @@ python3 -m venv mediapills
 
 source mediapills/bin/activate
 
-pip install git+ssh://git@github.com/mediapills/http_foundation.git@0.0.1#egg=mediapills.http_foundation
+pip install git+ssh://git@github.com/mediapills/http_foundation.git@main#egg=mediapills.http_foundation
 ```
 
 ## Windows (CMD/PowerShell)
@@ -30,5 +30,5 @@ python3 -m venv mediapills
 
 ./mediapills/bin/activate
 
-pip install git+ssh://git@github.com/mediapills/http_foundation.git@0.0.1#egg=mediapills.http_foundation
+pip install git+ssh://git@github.com/mediapills/http_foundation.git@main#egg=mediapills.http_foundation
 ```
