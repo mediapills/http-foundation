@@ -20,9 +20,12 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 import unittest
 
+from mediapills.http_foundation import responses
+
 
 class TestRequestsImport(unittest.TestCase):
-    def test_import_should_not_fail(self) -> None:
-        __import__("mediapills.http_foundation.responses")
-
-        self.assertTrue(True)
+    def test_enums_coverage(self) -> None:
+        self.assertListEqual(
+            list(map(lambda c: c.name, responses.HTTPStatusMessage)),
+            list(map(lambda c: c.name, responses.HTTPStatusCode)),
+        )
