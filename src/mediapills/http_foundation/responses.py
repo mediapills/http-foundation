@@ -23,19 +23,84 @@ import typing as t
 from enum import Enum
 
 
+# Successful responses codes group
+
 """The request succeeded."""
 HTTP_RESPONSE_STATUS_CODE_OK = 200
 
 """The request succeeded, and a new resource created as a result."""
 HTTP_RESPONSE_STATUS_CODE_CREATED = 201
 
+"""The request has been received but not yet acted upon. It is noncommittal, since
+there is no way in HTTP to later send an asynchronous response indicating the
+outcome of the request."""
+HTTP_RESPONSE_STATUS_CODE_ACCEPTED = 202
+
+"""This response code means the returned metadata is not exactly the same as is
+available from the origin server, but is collected from a local or a third-party
+copy."""
+HTTP_RESPONSE_STATUS_CODE_NON_AUTHORITATIVE_INFORMATION = 203
+
 """There is no content to send for this request, but the headers may be useful."""
 HTTP_RESPONSE_STATUS_CODE_NO_CONTENT = 204
+
+"""Tells the user agent to reset the document which sent this request."""
+HTTP_RESPONSE_STATUS_CODE_RESET_CONTENT = 205
+
+"""This response code is used when the Range header is sent from the client to request
+only part of a resource."""
+HTTP_RESPONSE_STATUS_CODE_PARTIAL_CONTENT = 206
+
+"""Conveys information about multiple resources, for situations where multiple status
+codes might be appropriate."""
+HTTP_RESPONSE_STATUS_CODE_MULTI_STATUS = 207
+
+"""Used inside a <dav:propstat> response element to avoid repeatedly enumerating the
+internal members of multiple bindings to the same collection."""
+HTTP_RESPONSE_STATUS_CODE_ALREADY_REPORTED = 208
+
+"""The server has fulfilled a GET request for the resource, and the response is a
+representation of the result of one or more instance-manipulations applied to the current
+instance."""
+HTTP_RESPONSE_STATUS_CODE_IM_USED = 226
+
+# Redirection messages responses codes group
+
+"""The request has more than one possible response."""
+HTTP_RESPONSE_STATUS_CODE_MULTIPLE_CHOICES = 300
+
+"""The URL of the requested resource has been changed permanently."""
+HTTP_RESPONSE_STATUS_CODE_MOVED_PERMANENTLY = 301
 
 """This response code means that the URI of requested resource has been changed
 temporarily.
 """
 HTTP_RESPONSE_STATUS_CODE_FOUND = 302
+
+"""The server sent this response to direct the client to get the requested resource at
+another URI with a GET request."""
+HTTP_RESPONSE_STATUS_CODE_SEE_OTHER = 303
+
+"""This is used for caching purposes. It tells the client that the response has not been
+modified, so the client can continue to use the same cached version of the response."""
+HTTP_RESPONSE_STATUS_CODE_NOT_MODIFIED = 304
+
+"""Defined in a previous version of the HTTP specification to indicate that a requested
+response must be accessed by a proxy."""
+HTTP_RESPONSE_STATUS_CODE_USE_PROXY = 305
+
+"""This response code is no longer used; it is just reserved."""
+HTTP_RESPONSE_STATUS_CODE_RESERVED = 306
+
+"""The server sends this response to direct the client to get the requested resource at
+another URI with same method that was used in the prior request."""
+HTTP_RESPONSE_STATUS_CODE_TEMPORARY_REDIRECT = 307
+
+"""This means that the resource is now permanently located at another URI, specified by
+the Location: HTTP Response header."""
+HTTP_RESPONSE_STATUS_CODE_PERMANENTLY_REDIRECT = 308
+
+# Client error responses codes group
 
 """The server could not understand the request due to invalid syntax."""
 HTTP_RESPONSE_STATUS_CODE_BAD_REQUEST = 400
@@ -77,12 +142,32 @@ HTTP_RESPONSE_STATUS_CODES_SUCCESSFUL = frozenset(
     [
         HTTP_RESPONSE_STATUS_CODE_OK,
         HTTP_RESPONSE_STATUS_CODE_CREATED,
+        HTTP_RESPONSE_STATUS_CODE_ACCEPTED,
+        HTTP_RESPONSE_STATUS_CODE_NON_AUTHORITATIVE_INFORMATION,
         HTTP_RESPONSE_STATUS_CODE_NO_CONTENT,
+        HTTP_RESPONSE_STATUS_CODE_RESET_CONTENT,
+        HTTP_RESPONSE_STATUS_CODE_PARTIAL_CONTENT,
+        HTTP_RESPONSE_STATUS_CODE_MULTI_STATUS,
+        HTTP_RESPONSE_STATUS_CODE_ALREADY_REPORTED,
+        HTTP_RESPONSE_STATUS_CODE_IM_USED,
     ]
 )
 
 """Successful response code group."""
-HTTP_RESPONSE_STATUS_CODE_REDIRECTIONS = frozenset([HTTP_RESPONSE_STATUS_CODE_FOUND])
+HTTP_RESPONSE_STATUS_CODE_REDIRECTIONS = frozenset(
+    [
+        HTTP_RESPONSE_STATUS_CODE_MULTIPLE_CHOICES,
+        HTTP_RESPONSE_STATUS_CODE_MOVED_PERMANENTLY,
+        HTTP_RESPONSE_STATUS_CODE_FOUND,
+        HTTP_RESPONSE_STATUS_CODE_FOUND,
+        HTTP_RESPONSE_STATUS_CODE_SEE_OTHER,
+        HTTP_RESPONSE_STATUS_CODE_NOT_MODIFIED,
+        HTTP_RESPONSE_STATUS_CODE_USE_PROXY,
+        HTTP_RESPONSE_STATUS_CODE_RESERVED,
+        HTTP_RESPONSE_STATUS_CODE_TEMPORARY_REDIRECT,
+        HTTP_RESPONSE_STATUS_CODE_PERMANENTLY_REDIRECT,
+    ]
+)
 
 """Client Error response code group."""
 HTTP_RESPONSE_STATUS_CODE_CLIENT_ERRORS = frozenset(
