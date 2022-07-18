@@ -130,6 +130,17 @@ HTTP_CODE_UNPROCESSABLE_ENTITY = 422
 """The server has encountered a situation it does not know how to handle."""
 HTTP_CODE_INTERNAL_SERVER_ERROR = 500
 
+HTTP_CODE_NOT_IMPLEMENTED = 501
+HTTP_CODE_BAD_GATEWAY = 502
+HTTP_CODE_SERVICE_UNAVAILABLE = 503
+HTTP_CODE_GATEWAY_TIMEOUT = 504
+HTTP_CODE_VERSION_NOT_SUPPORTED = 505
+HTTP_CODE_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL = 506
+HTTP_CODE_INSUFFICIENT_STORAGE = 507
+HTTP_CODE_LOOP_DETECTED = 508
+HTTP_CODE_NOT_EXTENDED = 510
+HTTP_CODE_NETWORK_AUTHENTICATION_REQUIRED = 511
+
 
 class HTTPStatusCode(Enum):
     """Enumerated HTTP response codes constants."""
@@ -159,6 +170,18 @@ class HTTPStatusCode(Enum):
     CONFLICT = HTTP_CODE_CONFLICT
     UNPROCESSABLE_ENTITY = HTTP_CODE_UNPROCESSABLE_ENTITY
     INTERNAL_SERVER_ERROR = HTTP_CODE_INTERNAL_SERVER_ERROR
+    NOT_IMPLEMENTED = HTTP_CODE_NOT_IMPLEMENTED
+    BAD_GATEWAY = HTTP_CODE_BAD_GATEWAY
+    SERVICE_UNAVAILABLE = HTTP_CODE_SERVICE_UNAVAILABLE
+    GATEWAY_TIMEOUT = HTTP_CODE_GATEWAY_TIMEOUT
+    VERSION_NOT_SUPPORTED = HTTP_CODE_VERSION_NOT_SUPPORTED
+    VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL = (
+        HTTP_CODE_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL
+    )
+    INSUFFICIENT_STORAGE = HTTP_CODE_INSUFFICIENT_STORAGE
+    LOOP_DETECTED = HTTP_CODE_LOOP_DETECTED
+    NOT_EXTENDED = HTTP_CODE_NOT_EXTENDED
+    NETWORK_AUTHENTICATION_REQUIRED = HTTP_CODE_NETWORK_AUTHENTICATION_REQUIRED
 
 
 class HTTPStatusMessage(Enum):  # dead: disable
@@ -216,16 +239,16 @@ class HTTPStatusMessage(Enum):  # dead: disable
     # 431 = 'Request Header Fields Too Large'
     # 451 = 'Unavailable For Legal Reasons'
     INTERNAL_SERVER_ERROR = "Internal Server Error"
-    # 501 = 'Not Implemented'
-    # 502 = 'Bad Gateway'
-    # 503 = 'Service Unavailable'
-    # 504 = 'Gateway Timeout'
-    # 505 = 'HTTP Version Not Supported'
-    # 506 = 'Variant Also Negotiates'
-    # 507 = 'Insufficient Storage'
-    # 508 = 'Loop Detected'
-    # 510 = 'Not Extended'
-    # 511 = 'Network Authentication Required'
+    NOT_IMPLEMENTED = "Not Implemented"
+    BAD_GATEWAY = "Bad Gateway"
+    SERVICE_UNAVAILABLE = "Service Unavailable"
+    GATEWAY_TIMEOUT = "Gateway Timeout"
+    VERSION_NOT_SUPPORTED = "HTTP Version Not Supported"
+    VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL = "Variant Also Negotiates"
+    INSUFFICIENT_STORAGE = "Insufficient Storage"
+    LOOP_DETECTED = "Loop Detected"
+    NOT_EXTENDED = "Not Extended"
+    NETWORK_AUTHENTICATION_REQUIRED = "Network Authentication Required"
 
 
 """Information response code group."""
@@ -274,7 +297,22 @@ HTTP_CODES_CLIENT_ERRORS = frozenset(
 )
 
 """Client Error response code group 5XX."""
-HTTP_CODES_SERVER_ERRORS = frozenset([HTTPStatusCode.INTERNAL_SERVER_ERROR.value])
+HTTP_CODES_SERVER_ERRORS = frozenset(
+    [
+        HTTPStatusCode.INTERNAL_SERVER_ERROR.value,
+        HTTPStatusCode.INTERNAL_SERVER_ERROR.value,
+        HTTPStatusCode.NOT_IMPLEMENTED.value,
+        HTTPStatusCode.BAD_GATEWAY.value,
+        HTTPStatusCode.SERVICE_UNAVAILABLE.value,
+        HTTPStatusCode.GATEWAY_TIMEOUT.value,
+        HTTPStatusCode.VERSION_NOT_SUPPORTED.value,
+        HTTPStatusCode.VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL.value,
+        HTTPStatusCode.INSUFFICIENT_STORAGE.value,
+        HTTPStatusCode.LOOP_DETECTED.value,
+        HTTPStatusCode.NOT_EXTENDED.value,
+        HTTPStatusCode.NETWORK_AUTHENTICATION_REQUIRED.value,
+    ]
+)
 
 """All available HTTP response codes."""
 HTTP_CODES = frozenset(  # dead: disable
