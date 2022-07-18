@@ -521,7 +521,99 @@ HTTP_STATUS_CODES: t.FrozenSet[int] = frozenset(
 )
 
 
+"""Documents transmitted with HTTP that are of type text, such as text/html, text/plain,
+etc., can send a charset parameter in the HTTP header to specify the character encoding
+of the document. """
+DEFAULT_CHARSET = "UTF-8"
+
+"""Default version was sent within each request (HTTP/1.0 was appended to the GET
+line)."""
+DEFAULT_VERSION = "1.0"
+
+
 class BaseHTTPResponse(metaclass=abc.ABCMeta):  # dead: disable
     """Response content made by a named host, to a client."""
 
-    pass
+    def __init__(
+        self,
+        content: str = "",
+        code: int = HTTP_CODE_OK,
+        headers: t.Optional[t.Dict[str, str]] = None,
+    ):
+        """Class constructor."""
+        self._content = content
+        self._code = code
+        self._headers = headers or dict()
+
+        self._charset = DEFAULT_CHARSET
+        self._version = DEFAULT_VERSION
+
+    @property
+    def content(self) -> str:
+        """Property content getter."""
+        return self._content
+
+    @content.setter
+    def content(self, content: str) -> None:
+        """Property content setter."""
+        self._content = content
+
+    @property
+    def code(self) -> int:
+        """Property code getter."""
+        return self._code
+
+    @code.setter
+    def code(self, code: int) -> None:
+        """Property code setter."""
+        self._code = code
+
+    @property
+    def headers(self) -> t.Dict[str, str]:
+        """Property headers getter."""
+        return self._headers
+
+    @headers.setter
+    def headers(self, headers: t.Dict[str, str]) -> None:
+        """Property headers setter."""
+        self._headers = headers
+
+    @property
+    def charset(self) -> str:
+        """Property charset getter."""
+        return self._charset
+
+    @charset.setter
+    def charset(self, charset: str) -> None:
+        """Property charset setter."""
+        self._charset = charset
+
+    @property
+    def protocol_version(self) -> str:
+        """Property version getter."""
+        return self._version
+
+    @protocol_version.setter
+    def protocol_version(self, version: str) -> None:
+        """Property version setter."""
+        self._version = version
+
+    @property
+    def is_successful(self) -> bool:  # dead: disable
+        """Is response successful?"""
+        return self.code in HTTP_CODES_SUCCESSFUL
+
+    @property
+    def is_redirection(self) -> bool:  # dead: disable
+        """Is the response a redirect?"""
+        return self.code in HTTP_CODES_REDIRECTIONS
+
+    @property
+    def is_client_error(self) -> bool:  # dead: disable
+        """Is there a client error?"""
+        return self.code in HTTP_CODES_CLIENT_ERRORS
+
+    @property
+    def is_server_error(self) -> bool:  # dead: disable
+        """Is there a server error?"""
+        return self.code in HTTP_CODES_SERVER_ERRORS
