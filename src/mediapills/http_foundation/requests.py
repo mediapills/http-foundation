@@ -19,7 +19,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 import abc
-import typing
+import typing as t
 from enum import Enum
 
 METHOD_GET = "GET"
@@ -75,18 +75,30 @@ class HTTPRequestMethod(Enum):  # dead: disable
 
 
 class BaseRequest(metaclass=abc.ABCMeta):  # dead: disable
-    """Request content made by a client, to a named host."""
+    """Request content made by a client, to a named host.
+
+    The mediapills.http_foundation.requests module defines classes for abstracting the
+    concept of request, an HTTP state management mechanism.
+    """
 
     def __init__(
         self,
-        query: typing.Optional[typing.Dict[str, str]] = None,
-        request: typing.Optional[typing.Dict[str, str]] = None,
-        attributes: typing.Optional[typing.Dict[str, str]] = None,
-        cookies: typing.Optional[typing.Dict[str, str]] = None,
-        server: typing.Optional[typing.Dict[str, str]] = None,
+        query: t.Optional[t.Dict[str, str]] = None,
+        request: t.Optional[t.Dict[str, str]] = None,
+        attributes: t.Optional[t.Dict[str, str]] = None,
+        cookies: t.Optional[t.Dict[str, str]] = None,
+        server: t.Optional[t.Dict[str, str]] = None,
         content: str = "",
     ):
-        """Class constructor."""
+        """Class constructor.
+
+        :param None or dict query:      Contents from GET request.
+        :param None or dict request:    Contents from POST request.
+        :param None or dict attributes: Arguments to be interpreted by the CGI script.
+        :param None or dict cookies:    Passed to the current script via HTTP Cookies.
+        :param None or dict server:     Contain headers, paths, and script locations.
+        :param str content:             Raw HTTP body data.
+        """
         self._query = query or dict()
         self._request = request or dict()
         self._attributes = attributes or dict()
@@ -104,6 +116,66 @@ class BaseRequest(metaclass=abc.ABCMeta):  # dead: disable
         self._base_path = None
         self._method = None
         self._format = None
+
+    @property
+    def query(self) -> t.Dict[str, str]:
+        """GET request parameters getter."""
+        return self._query
+
+    @query.setter
+    def query(self, query: t.Dict[str, str]) -> None:
+        """GET request parameters setter."""
+        self._query = query
+
+    @property
+    def request(self) -> t.Dict[str, str]:
+        """POST request parameters getter."""
+        return self._request
+
+    @request.setter
+    def request(self, request: t.Dict[str, str]) -> None:
+        """POST request parameters setter."""
+        self._request = request
+
+    @property
+    def attributes(self) -> t.Dict[str, str]:
+        """HTTP request attributes getter."""
+        return self._attributes
+
+    @attributes.setter
+    def attributes(self, attributes: t.Dict[str, str]) -> None:
+        """HTTP request attributes setter."""
+        self._attributes = attributes
+
+    @property
+    def cookies(self) -> t.Dict[str, str]:
+        """Property cookies getter."""
+        return self._cookies
+
+    @cookies.setter
+    def cookies(self, cookies: t.Dict[str, str]) -> None:
+        """Property cookies setter."""
+        self._cookies = cookies
+
+    @property
+    def server(self) -> t.Dict[str, str]:
+        """Property server getter."""
+        return self._server
+
+    @server.setter
+    def server(self, server: t.Dict[str, str]) -> None:
+        """Property server setter."""
+        self._server = server
+
+    @property
+    def content(self) -> str:
+        """Property content getter."""
+        return self._content
+
+    @content.setter
+    def content(self, content: str) -> None:
+        """Property content setter."""
+        self._content = content
 
     @property
     def path_info(self) -> str:

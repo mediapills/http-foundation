@@ -18,11 +18,30 @@
 # LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+import typing as t
 import unittest
+
+from mediapills.http_foundation import requests
 
 
 class TestRequestsImport(unittest.TestCase):
-    def test_import_should_not_fail(self) -> None:
-        __import__("mediapills.http_foundation.requests")
+    def test_constructor(self) -> None:
+        class TestRequest(requests.BaseRequest):
+            def __init__(self, *args: t.Any, **kwargs: t.Any) -> None:
+                super().__init__(*args, **kwargs)
 
-        self.assertTrue(True)
+        query = {"param_q": "value_q"}
+        request = {"param_r": "value_r"}
+        attributes = {"param_a": "value_a"}
+        cookies = {"param_c": "value_c"}
+        server = {"param_c": "value_s"}
+        content = "Raw dummy content"
+
+        obj = TestRequest(query, request, attributes, cookies, server, content)
+
+        self.assertEqual(obj.query, query)
+        self.assertEqual(obj.request, request)
+        self.assertEqual(obj.attributes, attributes)
+        self.assertEqual(obj.cookies, cookies)
+        self.assertEqual(obj.server, server)
+        self.assertEqual(obj.content, content)
