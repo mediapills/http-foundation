@@ -19,6 +19,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 import abc
+import typing
 from enum import Enum
 
 METHOD_GET = "GET"
@@ -76,4 +77,50 @@ class HTTPRequestMethod(Enum):  # dead: disable
 class BaseRequest(metaclass=abc.ABCMeta):  # dead: disable
     """Request content made by a client, to a named host."""
 
-    pass
+    def __init__(
+        self,
+        query: typing.Optional[typing.Dict[str, str]] = None,
+        request: typing.Optional[typing.Dict[str, str]] = None,
+        attributes: typing.Optional[typing.Dict[str, str]] = None,
+        cookies: typing.Optional[typing.Dict[str, str]] = None,
+        server: typing.Optional[typing.Dict[str, str]] = None,
+        content: str = "",
+    ):
+        """Class constructor."""
+        self._query = query or dict()
+        self._request = request or dict()
+        self._attributes = attributes or dict()
+        self._cookies = cookies or dict()
+        self._server = server or dict()
+        self._content = content
+
+        self._languages = None
+        self._charsets = None
+        self._encodings = None
+        self._acceptable_content_types = None
+        self._path_info = None
+        self._request_uri = None
+        self._base_url = None
+        self._base_path = None
+        self._method = None
+        self._format = None
+
+    @property
+    def path_info(self) -> str:
+        """Return the path being requested relative to the executed script.
+
+        The path info always starts with a /.
+
+        Suppose this request is instantiated from /mysite on localhost:
+
+        * http://localhost/mysite              returns an empty string
+        * http://localhost/mysite/about        returns '/about'
+        * http://localhost/mysite/enco%20ded   returns '/enco%20ded'
+        * http://localhost/mysite/about?var=1  returns '/about'
+        """
+        return self._path_info or ""
+
+    @path_info.setter
+    def path_info(self, path_info: str) -> None:
+        """Property path_info setter."""
+        self.path_info = path_info
